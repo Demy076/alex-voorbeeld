@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Import shoelace from node modules -->
+    <link
+      rel="stylesheet"
+      href="/node_modules/@shoelace-style/shoelace/dist/themes/light.css"
+    />
+    <!-- Shoe lace icons -->
+
+    <script
+      type="module"
+      src="/node_modules/@shoelace-style/shoelace/dist/shoelace.js"
+    ></script>
+    <!-- bootstrap from node_modules -->
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <script
+      type="module"
+      src="/node_modules/bootstrap/dist/js/bootstrap.min.js"
+    ></script>
+    <!--Load fontawesome-free -->
+    <link
+      rel="stylesheet"
+      href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="module">
+    import { registerIconLibrary } from "/node_modules/@shoelace-style/shoelace/dist/utilities/icon-library.js";
+
+    registerIconLibrary("fa", {
+      resolver: (name) => {
+        const filename = name.replace(/^fa[rbs]-/, "");
+        let folder = "regular";
+        if (name.substring(0, 4) === "fas-") folder = "solid";
+        if (name.substring(0, 4) === "fab-") folder = "brands";
+        return `https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/svgs/${folder}/${filename}.svg`;
+      },
+      mutator: (svg) => svg.setAttribute("fill", "currentColor"),
+    });
+  </script>
+  <script type="module" src="/app/main.ts"></script>
+</html>
